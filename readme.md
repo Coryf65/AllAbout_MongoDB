@@ -31,7 +31,10 @@ $ mongod.exe --config mongod.cfg
 
 2. Collectons ?
 
-    - 
+    - Grouping related Documents
+    - can cap a collection to auto delete oldest data
+    - not all collections need to have the same data types, and data
+    - similar to tables
 
 
 3. Searching for a Document
@@ -53,3 +56,27 @@ db.recipes.find({ "title": { $regex: /taco/i }}, { "title": 1 });
 -  lots of data with various types
 
 - text, numbers, arrays, 
+
+## Querying
+
+- Query sent -> Cursor created -> Options and operators -> Results returned
+
+- you can chain calls, sort of like method chaining
+
+1. Sort
+
+```sh
+$ db.recipes.find({}, { "title": 1 }).sort( {"title": 1 }).limit(2).sort();
+```
+
+2. Limit
+
+```sh
+$ db.recipes.find({}, { "title": 1 }).sort( {"title": 1 }).limit(2);
+```
+
+3. Skip
+
+```sh
+$ db.recipes.find({}, { "title": 1 }).sort( {"title": 1 }).skip(2);
+```
