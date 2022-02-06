@@ -4,7 +4,7 @@
 
 - Docs for MongoDB [here](https://docs.mongodb.com/ "MongoDB Documentation")
 
-- This is an Atomic Count
+- If you have used a Relational SQL DB concepts and terms, see the terminology comparison [here](https://docs.mongodb.com/manual/reference/sql-comparison/)
 
 - No Locks or Transactions
 
@@ -159,7 +159,7 @@ db.recipes.find({ "ingredients.name": "egg"}, {"title": 1});
 
 ### Updating Documents
 
-> Mongo also has an Upsert, update or insert
+> Mongo also uses an Upsert, update or insert
 
 1. `$set`
 
@@ -187,4 +187,75 @@ db.recipes.find({ "ingredients.name": "egg"}, {"title": 1});
 
 ### Updating Arrays
 
+1. `$push`
+    
+    - The $push operator appends a specified value to an array.
+    
+> The $push operator has the form:
+
+```sh
+{ $push: { <field1>: <value1>, ... } }
+```
+
+2. `$pull`
+    
+    - The $pull operator removes from an existing array all instances of a value or values that match a specified condition.
+
+> The $pull operator has the form:
+
+```sh
+{ $pull: { <field1>: <value|condition>, <field2>: <value|condition>, ... } }
+```
+
+
 ### Deleting Documents
+
+1. `db.collection.deleteOne()`
+    - Delete at most a single document that match a specified filter even though multiple documents may match the specified filter.
+    > New in version 3.2.
+
+2. `db.collection.deleteMany()`
+    - Delete all documents that match a specified filter.
+    > New in version 3.2.
+
+3. `db.collection.remove()`
+    - Delete a single document or all documents that match a specified filter.
+
+
+## Data Modeling and Schema
+
+    "Data that is accessed together should be stored together." - MongoDB
+
+ - One to One
+
+    - We would want to generally store the ingredients in the recipes, or
+    store the address in the users
+
+- One to Many
+
+    - one recipe to many comments
+    - example have a recipe with the top 3 comments and have a load
+    more button that will load an all comments from another documents
+
+- we do have some gotchas,
+
+    - Will your data change ?
+    - Can you store some of your data ?
+
+## Indexes / Indecies
+
+Compound indexes, regular indexes, and geo-spatial indexes
+
+- See our indexes
+
+    - `db.recipes.getIndexes()` or `db.recipes.getIndicies()`
+
+- create an index
+
+    - create an index based in cook_time asc
+    - `db.recipes.createIndex({"cook_time" : 1})`
+
+- remove and index, need the name of a index
+
+    - `db.recipes.dropIndex("cook_time_1");`
+
