@@ -4,6 +4,24 @@
 
 - Docs for MongoDB [here](https://docs.mongodb.com/ "MongoDB Documentation")
 
+- This is an Atomic Count
+
+- No Locks or Transactions
+
+## About MongoDB
+
+> MongoDB stores data in flexible, JSON-like documents, meaning fields can vary from document to document and data structure can be changed over time
+>
+>The document model maps to the objects in your application code, making data easy to work with
+>
+>Ad hoc queries, indexing, and real time aggregation provide powerful ways to access and analyze your data
+>
+>MongoDB is a distributed database at its core, so high availability, horizontal scaling, and geographic distribution are built in and easy to use
+>
+>MongoDB is free to use. Versions released prior to October 16, 2018 are published under the AGPL. All versions released after October 16, 2018, including patch fixes for prior versions, are published under the Server Side Public License (SSPL) v1.
+>
+>` from: MongoDB Official Website` [here](https://www.mongodb.com/what-is-mongodb) 
+
 ## Installing locally
 
 - Install and Run as a Windows Service

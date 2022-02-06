@@ -1,0 +1,93 @@
+// MongoDB Playground
+
+// The current database to use.
+use('LearningMongo');
+
+// Search for documents in the current collection.
+db.getCollection('examples')
+  .find(
+    {},
+    {
+      "title" : 1
+    }
+  );
+
+
+// $set, updating a collection
+db.getCollection('examples')
+  .updateOne(
+    {
+      "title" : "Pizza"
+    },
+    // We could have used the id if we wanted
+    {
+        /**
+         * field: The field name
+         * expression: The expression.
+         */
+        $set: {
+          "title": "Thin crust style pizza"
+        }
+    }
+  );
+
+// Output from $set
+// {
+//   "acknowledged": true,
+//   "insertedId": null,
+//   "matchedCount": 1,
+//   "modifiedCount": 1,
+//   "upsertedCount": 0
+// }
+
+// Upsert to add a new property
+
+db.getCollection('examples')
+  .updateOne(
+    {
+      "title" : "Thin crust style pizza"
+    },
+    // We could have used the id if we wanted
+    {
+        /**
+         * It will add this prop into the match of title = 'Thin crust style pizza'
+         */
+        $set: {
+          "vegan": false
+        }
+    }
+  );
+
+
+// {
+//   "acknowledged": true,
+//   "insertedId": null,
+//   "matchedCount": 1,
+//   "modifiedCount": 1,
+//   "upsertedCount": 0
+// }
+
+// get results and print in JSON formatted
+
+db.getCollection('examples')
+  .find(
+    {
+      "title" : "Tacos"
+    }
+  ).pretty();
+
+
+// we can increment a field, and choose how much, likes_count:3
+
+db.getCollection('examples')
+  .updateOne(
+    {
+      "title" : "Tacos"
+    },
+    {
+        $inc:{
+            // increment the count by one            
+            "likes_count": 1
+        }
+    }
+  );
