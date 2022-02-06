@@ -24,7 +24,7 @@
 
 ## Installing locally
 
-- Install and Run as a Windows Service
+- Install and Run as a Windows Service (suggested way, easier)
 
 - Run as a local user
 
@@ -38,7 +38,9 @@ $ mongod.exe --config mongod.cfg
 
 - CLI
 
-- example query
+- VSCode Mongo Extension : [VS Marketplace Link](https://marketplace.visualstudio.com/items?itemName=mongodb.mongodb-vscode)
+
+> example query, connected using VSCode
 
 ```js
 // MongoDB Playground
