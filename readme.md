@@ -359,3 +359,5 @@ Compound indexes, regular indexes, and geo-spatial indexes
         ```
 
         Then enable writes again `db.fsyncUnlock();`
+
+    2. Mongodump / mongorestore
