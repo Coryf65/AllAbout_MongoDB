@@ -8,6 +8,8 @@
 
 - No Locks or Transactions
 
+- Works with many programming languages all listed [here](https://www.mongodb.com/languages) some examples `Python`, `Node.js`, `PHP`, `C#`, `Go`, `Java`, `Ruby` and many more...
+
 ## About MongoDB
 
 > MongoDB stores data in flexible, JSON-like documents, meaning fields can vary from document to document and data structure can be changed over time
@@ -259,3 +261,101 @@ Compound indexes, regular indexes, and geo-spatial indexes
 
     - `db.recipes.dropIndex("cook_time_1");`
 
+
+## Grid FS
+
+- use to store entire files
+
+- breaks files into chunks and streams them back to you
+
+    > Examples:
+
+    Getting a file saved in mongo
+    ```sh
+    mongofiles get seattle.jpg --db=files
+    ```
+
+    Save a file into our DB
+    ```sh
+    mongofiles put taco.jpg --db=files
+    ```
+
+    List out all file from a DB
+    ```sh
+    mongofiles list --db=files
+    ```
+
+    Example using Python and MongoFiles
+
+    ```python
+    #! /usr/bin/python
+
+    import pymongo
+    import gridfs
+
+    client = pymongo.MongoClient("localhost", 27017)
+    db = client.files
+    fs = gridfs.GridFS(db)
+
+    file_id = fs.put(b"Test Test Test 123...", filename="testing.txt")
+
+    print(fs.list())
+    print(fs.get(file_id).read())
+    ```
+
+## Server Administration
+
+> Reference to the Mongo Docs [here](https://docs.mongodb.com/manual/reference/configuration-options/)
+
+1. Configuration 
+    
+    - you can configure anything in the CLI, or in the config file which varies location based on OS
+
+2. Replication
+
+    -  more info [here](https://docs.mongodb.com/manual/replication/)
+
+    - you can have primary and secondary nodes, useful for scaling
+
+    - place them inside seperate Docker containers and have those on many servers
+
+3. Sharding
+
+    - more info [here](https://docs.mongodb.com/manual/sharding/)
+
+    - Partitioning data across multiple many servers, and spread across usage needs
+
+    - can be complicated use only if needed
+
+4. Authentication and Authorization
+
+    - Mongo DB Docs [Authentication](https://docs.mongodb.com/manual/core/authentication/) & [Authorization](https://docs.mongodb.com/manual/core/authorization/)
+
+    - Authentication = Logging in
+    - Authorization = Limiting Access
+
+    > Example of creating a user, [MongoDocs for creating a user](https://docs.mongodb.com/manual/reference/method/db.createUser/)
+    ```sh
+    db.createUser(
+        {
+            user: "tester",
+            pwd: paaswordPrompt(),
+            roles: [ { role: "userAdmininAnyDatabase", db: "admin" }, "readWriteAnyDatabase" ]
+        }
+    )
+    ```
+
+5. Backups
+
+    - Mongo Docs [here](https://docs.mongodb.com/manual/core/backups/)
+
+    1. Easiest way
+
+        - enter db, stop writes while doing so prevents writing to disk saves to ram `db.fsyncLock();`. then Copy all the files and put into a backup location.
+        
+        > example to copy files 
+        ```sh 
+        cp -R /data/db/* .../someplace
+        ```
+
+        Then enable writes again `db.fsyncUnlock();`
